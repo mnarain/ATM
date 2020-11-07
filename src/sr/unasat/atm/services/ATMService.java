@@ -14,6 +14,14 @@ public class ATMService {
     // indien saldo wel toereikend, retouneer gevraagd bedrag met correcte melding en update het saldo en geef aan wat over is
 
     public void snelkas(int chosenAmount) {
+        // controleer of het saldo toereikend is
+        if(!isSaldoToereikend(chosenAmount)){
+            System.out.println("het saldo is niet toereikend");
+            return;
+        }
+
+        //ergens in de code de aftrekking doen en het nieuwe saldo tonen
+
         String message = "Haal uw geld uit het cashvak. U heeft gekozen voor de optie van ";
         switch (chosenAmount){
             case 50: message += "SRD" + snelkasOpties[0]+ ",-";
@@ -33,6 +41,10 @@ public class ATMService {
             default: message = "Kies aub een snelkas bedrag";
         }
         System.out.println(message);
+    }
+
+    private boolean isSaldoToereikend(int chosenAmount) {
+        return (saldo - chosenAmount >= 0);
     }
 
 }

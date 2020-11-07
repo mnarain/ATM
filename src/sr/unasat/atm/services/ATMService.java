@@ -5,7 +5,7 @@ public class ATMService {
     private double saldo;
 
     public ATMService(double saldo) {
-        this.saldo = saldo; //2000
+        this.saldo = saldo;
     }
 
     //maak snelkas keuze

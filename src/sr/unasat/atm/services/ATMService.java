@@ -2,6 +2,16 @@ package sr.unasat.atm.services;
 
 public class ATMService {
     private static Integer[] snelkasOpties= {50,100,200,400,600,800,1000};
+    private double saldo;
+
+    public ATMService(double saldo) {
+        this.saldo = saldo; //2000
+    }
+
+    //maak snelkas keuze
+    // controleer of het saldo toereikend is
+    // indien saldo niet toereikend toon melding uw saldo is niet toereikend
+    // indien saldo wel toereikend, retouneer gevraagd bedrag met correcte melding en update het saldo en geef aan wat over is
 
     public void snelkas(int chosenAmount) {
         String message = "Haal uw geld uit het cashvak. U heeft gekozen voor de optie van ";

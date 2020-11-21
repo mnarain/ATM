@@ -1,5 +1,7 @@
 package sr.unasat.atm.services;
 
+import sr.unasat.atm.util.MoneyFormatter;
+
 public class ATMService {
     private static Integer[] snelkasOpties= {50,100,200,400,600,800,1000};
     private double saldo;
@@ -24,23 +26,36 @@ public class ATMService {
 
         String message = "Haal uw geld uit het cashvak. U heeft gekozen voor de optie van ";
         switch (chosenAmount){
-            case 50: message += "SRD" + snelkasOpties[0]+ ",-";
+            case 50:
+                message = processRequest(message, 0);
                 break;
-            case 100: message += "SRD" + snelkasOpties[1]+ ",-";
+            case 100:
+                message = processRequest(message, 1);
                 break;
-            case 200: message += "SRD" + snelkasOpties[2]+ ",-";
+            case 200:
+                message = processRequest(message, 2);
                 break;
-            case 400: message += "SRD" + snelkasOpties[3] + ",-";
+            case 400:
+                message = processRequest(message, 3);
                 break;
-            case 600: message += "SRD" + snelkasOpties[4]+ ",-";
+            case 600:
+                message = processRequest(message, 4);
                 break;
-            case 800: message += "SRD" + snelkasOpties[5]+ ",-";
+            case 800:
+                message = processRequest(message, 5);
                 break;
-            case 1000: message += "SRD" + snelkasOpties[6]+ ",-";
+            case 1000:
+                message = processRequest(message, 6);
                 break;
             default: message = "Kies aub een snelkas bedrag";
         }
         System.out.println(message);
+    }
+
+    private String processRequest(String message, int i) {
+        message += "SRD" + snelkasOpties[i] + ",-";
+        message += "\n" + "Het nieuwe saldo is nu " + MoneyFormatter.process(saldo - snelkasOpties[i]);
+        return message;
     }
 
     private boolean isSaldoToereikend(int chosenAmount) {

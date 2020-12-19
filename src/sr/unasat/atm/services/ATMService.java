@@ -1,21 +1,17 @@
 package sr.unasat.atm.services;
 
+import sr.unasat.atm.entities.User;
 import sr.unasat.atm.util.MoneyFormatter;
 
 public class ATMService {
     private static Integer[] snelkasOpties= {50,100,200,400,600,800,1000};
-    private double saldo;
-
-    public ATMService(double saldo) {
-        this.saldo = saldo;
-    }
 
     //maak snelkas keuze
     // controleer of het saldo toereikend is
     // indien saldo niet toereikend toon melding uw saldo is niet toereikend
     // indien saldo wel toereikend, retouneer gevraagd bedrag met correcte melding en update het saldo en geef aan wat over is
 
-    public void snelkas(int chosenAmount) {
+    public static void snelkas(int chosenAmount) {
         // controleer of het saldo toereikend is
         if(!isSaldoToereikend(chosenAmount)){
             System.out.println("het saldo is niet toereikend");
@@ -52,14 +48,15 @@ public class ATMService {
         System.out.println(message);
     }
 
-    private String processRequest(String message, int i) {
+    private static String processRequest(String message, int i) {
         message += "SRD" + snelkasOpties[i] + ",-";
-        message += "\n" + "Het nieuwe saldo is nu " + MoneyFormatter.process(saldo - snelkasOpties[i]);
+        message += "\n" + "Het nieuwe saldo is nu " + MoneyFormatter.process(AuthenticationService.loggedInUser.getSaldo() - snelkasOpties[i]);
+        AuthenticationService.loggedInUser.setSaldo(AuthenticationService.loggedInUser.getSaldo() - snelkasOpties[i]);
         return message;
     }
 
-    private boolean isSaldoToereikend(int chosenAmount) {
-        return (saldo - chosenAmount >= 0);
+    private static boolean  isSaldoToereikend(int chosenAmount) {
+        return (AuthenticationService.loggedInUser.getSaldo() - chosenAmount >= 0);
     }
 
 }
